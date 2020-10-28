@@ -1,0 +1,16 @@
+FROM ubuntu
+RUN apt-get -y update
+RUN apt-get -y upgrade
+RUN apt-get install -y git
+RUN apt-get install -y python3-pip
+Run pip3 install nano
+RUN pip3 install --upgrade pip
+RUN pip3 install celery==4.4.7
+RUN DEBIAN_FRONTEND=noninteractive apt-get install lightdm -y
+RUN apt-get install -yq less sudo octave
+RUN pip3 install oct2py
+WORKDIR /home/ubuntu/
+RUN git clone https://github.com/TabeaHaverkamp/ACC-Project-BENCHOP.git
+WORKDIR /home/ubuntu/ACC-Project-BENCHOP/BENCHOP/
+ENTRYPOINT celery -A tasks worker -l INFO --max-memory-per-child 100
+
